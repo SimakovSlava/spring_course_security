@@ -7,18 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.User;
 
 @EnableWebSecurity
-public class MySecurityConfig implements WebSecurityConfigurer {
+public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    public void init(SecurityBuilder builder) throws Exception {
-
-    }
-
-    @Override
-    public void configure(SecurityBuilder builder) throws Exception {
+    public void configure( AuthenticationManagerBuilder authenticationManagerBuilder ) throws Exception {
         User.UserBuilder userBuilder = User.withDefaultPasswordEncoder();
 
-        AuthenticationManagerBuilder authenticationManagerBuilder = (AuthenticationManagerBuilder) builder.build();
         authenticationManagerBuilder.inMemoryAuthentication().
                 withUser(userBuilder.username("slava").password("slava").roles("EMPLOYEE")).
                 withUser(userBuilder.username("elena").password("elena").roles("HR")).
